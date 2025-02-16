@@ -7,6 +7,6 @@
     Title="DishDiary.Mobile"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+    <ShellContent ContentTemplate="{DataTemplate local:DishListPage}" Route="MainPage" />
 
 </Shell>

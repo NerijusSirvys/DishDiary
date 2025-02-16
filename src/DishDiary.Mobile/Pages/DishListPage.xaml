@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DishDiary.Mobile.DishListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:DishDiary.Mobile.Services.Dish.Data"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:DishDiary.Mobile.ViewModels"
+    x:DataType="vm:DishListViewModel">
+
+    <CollectionView
+        Margin="0,5,0,5"
+        ItemsSource="{Binding Dishes}"
+        SelectionMode="None">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="model:Dish">
+                <Border Margin="5,0,5,0">
+                    <Border.Behaviors>
+                        <toolkit:TouchBehavior
+                            DefaultAnimationDuration="150"
+                            DefaultAnimationEasing="{x:Static Easing.Linear}"
+                            PressedBackgroundColor="{x:StaticResource Primary}"
+                            PressedScale="0.97" />
+                    </Border.Behaviors>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:DishListViewModel}}, Path=CardClickCommand}" CommandParameter="{Binding Id}" />
+                    </Border.GestureRecognizers>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="6" />
+                    </Border.StrokeShape>
+                    <Grid ColumnSpacing="10" MaximumHeightRequest="60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.25*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Aspect="AspectFill" Source="{Binding Image}" />
+                        <VerticalStackLayout Grid.Column="1" Spacing="0">
+                            <Label FontSize="Header" Text="{Binding Name}" />
+                            <Label FontSize="Caption" Text="{Binding Description}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using DishDiary.Mobile.Services.Dish;
+using DishDiary.Mobile.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace DishDiary.Mobile
@@ -16,10 +18,14 @@ namespace DishDiary.Mobile
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddSingleton<AppShell>();
+            builder.Services.AddSingleton<DishListPage>();
+            builder.Services.AddSingleton<DishListViewModel>();
+            builder.Services.AddTransient<DishService>();
 
             return builder.Build();
         }
